@@ -1,0 +1,9 @@
+#.gitignore
+/.git/
+/.idea/
+/untracked/
+/.venv/
+
+__pycache__/
+
+**.pyc
