@@ -6,6 +6,34 @@ import os
 import pprint
 import cowsay
 
+#
+# HEREDOC_PATTERN = re.compile(
+#     r'\$.* = <<["\']?(.*)["\']?;?(?P<the_cow>[\w\W]*)\1'
+# )
+
+my_cow = r'''
+$the_cow = <<EOC;
+   $thoughts         __------~~-,
+    $thoughts      ,'            ,
+          /               \\
+         /                :
+        |                  '
+        |                  |
+        |                  |
+         |   _--           |
+         _| =-.     .-.   ||
+         o|/o/       _.   |
+         /  ~          \\ |
+       (____\@)  ___~    |
+          |_===~~~.`    |
+       _______.--~     |
+       \\________       |
+                \\      |
+              __/-___-- -__
+             /            _ \\
+EOC
+'''.strip()
+
 def bullscows(guess: str, secret: str) -> (int, int):
     bulls_count = sum(g==s for g,s in zip(guess, secret))
     cows_count = (Counter(guess) & Counter(secret)).total()
@@ -13,8 +41,9 @@ def bullscows(guess: str, secret: str) -> (int, int):
 
 def ask(prompt: str, valid: list[str] = None) -> str:
     # word = input(prompt)
-    print(cowsay.cowsay(prompt, width=80, preset='w'))
+    print(cowsay.cowsay(prompt, cowfile=my_cow, width=80, preset='w'))
     word = input('>>> ')
+    print()
 
     if valid is not None:
         while word not in valid:
