@@ -2,10 +2,9 @@ from collections import Counter
 import random
 from urllib import request
 import argparse
-import tempfile
 import os
 import pprint
-
+import cowsay
 
 def bullscows(guess: str, secret: str) -> (int, int):
     bulls_count = sum(g==s for g,s in zip(guess, secret))
@@ -13,15 +12,21 @@ def bullscows(guess: str, secret: str) -> (int, int):
     return bulls_count, cows_count
 
 def ask(prompt: str, valid: list[str] = None) -> str:
-    word = input(prompt)
+    # word = input(prompt)
+    print(cowsay.cowsay(prompt, width=80, preset='w'))
+    word = input('>>> ')
+
     if valid is not None:
         while word not in valid:
-            print('repeat input, word not in approved list')
+            # print('repeat input, word not in approved list')
+            print(cowsay.cowsay('repeat input, word not in approved list', width=80, preset='d'))
             word = input(prompt)
     return word
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(format_string.format(bulls, cows))
+    # print(format_string.format(bulls, cows))
+    print(cowsay.cowsay(format_string.format(bulls, cows), width=80, preset='g'))
+
 
 
 def gameplay(ask: callable, inform: callable, words: list[str], verbose: bool) -> int:
@@ -110,6 +115,7 @@ if __name__ == '__main__':
         parser.exit()
 
     attempts_count = run_game(words, args.verbose)
-    print('count of attempts is {}'.format(attempts_count))
+    # print('count of attempts is {}'.format(attempts_count))
+    print(cowsay.cowsay('YOU WIN\ncount of attempts is {}'.format(attempts_count), width=80, preset='w'))
     parser.exit()
 
