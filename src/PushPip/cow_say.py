@@ -27,8 +27,7 @@ parser = argparse.ArgumentParser(description="cowsay console wrapper used argpar
                                  )
 
 
-parser.add_argument("message", type=str, action='store', help='the message to be displayed')
-
+parser.add_argument("message", action='store', nargs='+', help='the message to be displayed')
 info_group = parser.add_argument_group("informative options", "only debugging output in console without running cowsay")
 info_group.add_argument("-l", "--list_cows", action='store_true', help='available cows can be found by calling list_cows')
 parser.add_argument('--usage', action='store_true', help='execute print_usage method')
@@ -106,7 +105,7 @@ else:
     preset = None
 
 output = cowsay.cowsay(
-    args.message,
+    " ".join(args.message),
     cow = cow,
     preset = preset,
     eyes = args.eyes,
